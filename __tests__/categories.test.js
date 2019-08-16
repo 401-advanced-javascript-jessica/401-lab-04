@@ -1,4 +1,5 @@
 const Categories = require('../categories/categories.js');
+const Products = require('../products/products');
 
 describe('Categories Model', () => {
 
@@ -8,10 +9,10 @@ describe('Categories Model', () => {
     categories = new Categories();
   })
 
-  // How might we repeat this to check on types?
+  //How might we repeat this to check on types?
   it('sanitize() returns undefined with missing requirements', () => {
     const schema = categories.schema;
-    var testRecord = {};
+    var testRecord = { };
     for (var field in schema) {
       if (schema[field].required) {
         testRecord[field] = null;
@@ -35,7 +36,7 @@ describe('Categories Model', () => {
     let obj = { name: 'Test Category' };
     return categories.create(obj)
       .then(record => {
-        return categories.get(record._id)
+        return categories.get(record.id)
           .then(category => {
             Object.keys(obj).forEach(key => {
               expect(category[0][key]).toEqual(obj[key]);

@@ -41,16 +41,16 @@ class Model {
 		// Please take inspiration from lab 02
 
     Object.keys(this.schema).forEach(field => {
-      if (this.schema[field].required) {
-        if (entry[field]) {
+      if (this.schema[field].required && this.schema[field].type) {
+        if (entry[field] && typeof entry[field] === this.schema[field].type) {
           record[field] = entry[field];
         } else {
           valid = false;
         }
-      }
-      else {
+      } else {
         record[field] = entry[field];
       }
+       record.id = entry.id;
     });
 
     return valid ? record : undefined;
